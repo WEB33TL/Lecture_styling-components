@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import { BASE_URL, API_KEY } from '../constants'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import axios from 'axios'
+import Button from './styled/Button'
 
 const red = 'crimson'
+
+const kf = keyframes`
+  100% {
+    transform: scale(1)
+  }
+`
 
 // OUTSIDE OF THE COMPONENT!!!!!!!!!!!!!!!!!!!!!!
 const StyledDetails = styled.div`
   /* this applies to the div */
   background-color: ${pr => pr.alert ? 'red' : 'lightblue'};
-
-  button {
-    font-size: ${pr => pr.bigButton ? '2em' : 'initial'};
-    transition: all 0.5s ease-in-out;
-    &:hover {
-      background-color: black;
-      color: white;
-      transition: all 0.5s ease-in-out;
-    }
-  }
+  transform: scale(0);
+  animation: ${kf} 1s ease-in-out forwards; 
 
   h2 {
     color: ${red};
@@ -52,6 +51,7 @@ const StyledDetails = styled.div`
 `
 
 export default function Details(props) {
+  console.log('Details --> ', props)
   const { friendId, close } = props
   const [details, setDetails] = useState(null)
 
@@ -78,7 +78,7 @@ export default function Details(props) {
           </ul>
         </>
       }
-      <button big onClick={close}>Close</button>
+      <Button big onClick={close}>Close</Button>
     </StyledDetails>
   )
 }
